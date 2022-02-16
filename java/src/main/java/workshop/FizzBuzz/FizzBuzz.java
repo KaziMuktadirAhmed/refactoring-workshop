@@ -1,7 +1,5 @@
 package workshop.FizzBuzz;
 
-import workshop.Response;
-
 import java.util.ArrayList;
 import java.util.List;
 

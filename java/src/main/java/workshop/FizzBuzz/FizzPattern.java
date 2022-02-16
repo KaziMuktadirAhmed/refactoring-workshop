@@ -1,7 +1,5 @@
 package workshop.FizzBuzz;
 
-import workshop.Response;
-
 public class FizzPattern extends Matcher implements Response {
     @Override
     public boolean match(int number) {
