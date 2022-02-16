@@ -3,7 +3,6 @@ package workshop;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import workshop.FizzBuzz.*;
 
 public class FizzBuzzTest {
     @Test

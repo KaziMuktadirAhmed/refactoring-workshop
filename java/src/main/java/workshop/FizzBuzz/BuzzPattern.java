@@ -1,6 +1,8 @@
-package workshop;
+package workshop.FizzBuzz;
 
-public class BuzzPattern extends Matcher implements Response{
+import workshop.Response;
+
+public class BuzzPattern extends Matcher implements Response {
     @Override
     public boolean match(int number) {
         return number%5 == 0;
