@@ -13,41 +13,23 @@ public class FizzBuzz {
     private List<Matcher> matchers = new ArrayList<Matcher>();
     private Response nullResponse;
 
-    public FizzBuzz(ArrayList<Matcher> matchers, Response nullResponse) {
+    public FizzBuzz(ArrayList<Matcher> matchers, NullResponse nullResponse) {
         super();
         this.matchers = matchers;
         this.nullResponse = nullResponse;
     }
 
-    public static String say(int number) {
-        String strReturn = null;
+    public String say(int number) {
+        String strReturn = nullResponse.respond();
 
-        if (number % 15 == 0) {
-            strReturn = "FizzBuzz";
-        } else {
-            if (number % 3 == 0) strReturn = "Fizz";
-
-            if (number % 5 == 0) strReturn = "Buzz";
+        for (Matcher matcher: matchers) {
+            if (matcher.match(number)) strReturn = matcher.respond();
         }
 
-        if (strReturn != null) return strReturn;
-
-        return String.valueOf(number);
-    }
-
-    public Response getNullResponse() {
-        return nullResponse;
+        return strReturn;
     }
 
     public void setNullResponse(Response nullResponse) {
         this.nullResponse = nullResponse;
-    }
-
-    public List<Matcher> getMatchers() {
-        return matchers;
-    }
-
-    public void setMatchers(List<Matcher> matchers) {
-        this.matchers = matchers;
     }
 }
