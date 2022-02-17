@@ -13,7 +13,10 @@ public class PlaintextToHtmlConverter {
     private symbolNewLinePattern newLineMatcher = new symbolNewLinePattern();
 
     public PlaintextToHtmlConverter() {
-        this.matchers = new ArrayList<NormalResponse>(Arrays.asList(new symbolAmpercentPattern(), new symbolGreaterThenPattern(), new symbolLessThenPattern(), new notMatchedPattern()));
+        this.matchers = new ArrayList<>(Arrays.asList(  new symbolAmpercentPattern(),
+                                                        new symbolGreaterThenPattern(),
+                                                        new symbolLessThenPattern(),
+                                                        new notMatchedPattern()));
         this.newLineMatcher = new symbolNewLinePattern();
     }
 
@@ -44,7 +47,10 @@ public class PlaintextToHtmlConverter {
                     break;
                 }
             }
-            if (newLineMatcher.match(characterToConvert)) addANewLine(result, convertedLine);
+            if (newLineMatcher.match(characterToConvert)){
+                addANewLine(result, convertedLine);
+                break;
+            }
         }
 
         addANewLine(result, convertedLine);
