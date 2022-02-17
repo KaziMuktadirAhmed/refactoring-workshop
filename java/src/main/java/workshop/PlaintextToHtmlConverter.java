@@ -38,7 +38,7 @@ public class PlaintextToHtmlConverter {
                     addANewLine(result, convertedLine);
                     break;
                 default:
-                    pushACharacterToTheOutput(String.valueOf(characterToConvert), convertedLine);
+                    convertedLine.add(String.valueOf(characterToConvert));
             }
         }
 
@@ -52,10 +52,6 @@ public class PlaintextToHtmlConverter {
     private void addANewLine(List<String> result, List<String> convertedLine) {
         String line = String.join("", convertedLine);
         result.add(line);
-        convertedLine = new ArrayList<>();
-    }
-
-    private void pushACharacterToTheOutput(String characterToConvert, List<String> convertedLine) {
-        convertedLine.add(characterToConvert);
+        convertedLine.clear();
     }
 }
