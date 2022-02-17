@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaintextToHtmlConverter {
-    String source;
     int i;
-    List<String> result;
     List<String> convertedLine;
     String characterToConvert;
 
@@ -24,13 +22,13 @@ public class PlaintextToHtmlConverter {
     }
 
     private String basicHtmlEncode(String source) {
-        this.source = source;
-        i = 0;
-        result = new ArrayList<>();
-        convertedLine = new ArrayList<>();
-        characterToConvert = stashNextCharacterAndAdvanceThePointer();
 
-        while (i <= this.source.length()) {
+        i = 0;
+        List<String> result = new ArrayList<>();
+        convertedLine = new ArrayList<>();
+        characterToConvert = stashNextCharacterAndAdvanceThePointer(source);
+
+        while (i <= source.length()) {
             switch (characterToConvert) {
                 case "<":
                     convertedLine.add("&lt;");
@@ -42,7 +40,7 @@ public class PlaintextToHtmlConverter {
                     convertedLine.add("&amp;");
                     break;
                 case "\n":
-                    addANewLine();
+                    addANewLine(result);
                     break;
                 default:
                     pushACharacterToTheOutput();
@@ -50,16 +48,16 @@ public class PlaintextToHtmlConverter {
 
             if (i >= source.length()) break;
 
-            characterToConvert = stashNextCharacterAndAdvanceThePointer();
+            characterToConvert = stashNextCharacterAndAdvanceThePointer(source);
         }
-        addANewLine();
+        addANewLine(result);
         String finalResult = String.join("<br />", result);
         return finalResult;
     }
 
     //pick the character from source string
     //and increment the pointer
-    private String stashNextCharacterAndAdvanceThePointer() {
+    private String stashNextCharacterAndAdvanceThePointer(String source) {
         char c = source.charAt(i);
         i += 1;
         return String.valueOf(c);
@@ -67,7 +65,7 @@ public class PlaintextToHtmlConverter {
 
     //stringfy convertedLine array and push into result
     //reset convertedLine
-    private void addANewLine() {
+    private void addANewLine(List<String> result) {
         String line = String.join("", convertedLine);
         result.add(line);
         convertedLine = new ArrayList<>();
