@@ -1,7 +1,6 @@
 package workshop.FizzBuzz;
 
-public class NullResponse implements Response {
-    @Override
+public class NullResponse implements Response{
     public String respond() {
         return "";
     }

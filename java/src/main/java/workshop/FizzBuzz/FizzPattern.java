@@ -1,6 +1,6 @@
 package workshop.FizzBuzz;
 
-public class FizzPattern extends Matcher implements Response {
+public class FizzPattern extends Matcher{
     @Override
     public boolean match(int number) {
         return number % 3 == 0;
