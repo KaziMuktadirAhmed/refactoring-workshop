@@ -5,11 +5,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlaintextToHtmlConverter {
     private List<NormalResponse> matchers;
     private symbolNewLinePattern newLineMatcher = new symbolNewLinePattern();
+
+    public PlaintextToHtmlConverter() {
+        this.matchers = new ArrayList<NormalResponse>(Arrays.asList(new symbolAmpercentPattern(), new symbolGreaterThenPattern(), new symbolLessThenPattern(), new notMatchedPattern()));
+        this.newLineMatcher = new symbolNewLinePattern();
+    }
 
     public PlaintextToHtmlConverter(List<NormalResponse> matchers, symbolNewLinePattern newLineMatcher) {
         this.matchers = matchers;
