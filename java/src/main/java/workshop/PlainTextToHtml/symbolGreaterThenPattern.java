@@ -1,14 +1,14 @@
-package workshop;
+package workshop.PlainTextToHtml;
 
 import java.util.List;
 
-public class symbolLessThenPattern implements Matcher, NormalResponse {
+public class symbolGreaterThenPattern implements NormalResponse {
     private String toBeAdded;
 
     @Override
     public boolean match(char toBeMatched) {
-        toBeAdded = "&lt;";
-        return toBeMatched == '<';
+        toBeAdded = "&gt;";
+        return toBeMatched == '>';
     }
 
     @Override
