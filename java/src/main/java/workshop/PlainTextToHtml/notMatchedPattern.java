@@ -7,9 +7,8 @@ public class notMatchedPattern implements NormalResponse{
 
     @Override
     public boolean match(Character toBeMatched) {
-        toBeAdded = String.valueOf(toBeAdded);
-
-        return (toBeMatched != '>' && toBeMatched != '<' && toBeMatched != '&'  && toBeMatched != '\n');
+        toBeAdded = String.valueOf(toBeMatched);
+        return !(toBeMatched.equals('>')  || toBeMatched.equals('<') || toBeMatched.equals('&')  || toBeMatched.equals('\n'));
     }
 
     @Override
