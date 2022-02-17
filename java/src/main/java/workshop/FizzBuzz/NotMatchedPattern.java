@@ -1,7 +1,7 @@
 package workshop.FizzBuzz;
 
 public class NotMatchedPattern extends Matcher{
-    private String responseStr = "";
+    private String responseStr;
     @Override
     public boolean match(int number) {
         responseStr = String.valueOf(number);
