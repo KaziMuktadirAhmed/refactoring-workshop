@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaintextToHtmlConverter {
+    private List<NormalResponse> matchers;
+    private symbolNewLinePattern newLineMatcher = new symbolNewLinePattern();
+
+    public PlaintextToHtmlConverter(List<NormalResponse> matchers, symbolNewLinePattern newLineMatcher) {
+        this.matchers = matchers;
+        this.newLineMatcher = newLineMatcher;
+    }
+
     public String toHtml() throws Exception {
         String text = read();
         return basicHtmlEncode(text);
@@ -24,22 +32,10 @@ public class PlaintextToHtmlConverter {
         List<String> convertedLine = new ArrayList<>();
 
         for (char characterToConvert: source.toCharArray()) {
-            switch (characterToConvert) {
-                case '<':
-                    convertedLine.add("&lt;");
-                    break;
-                case '>':
-                    convertedLine.add("&gt;");
-                    break;
-                case '&':
-                    convertedLine.add("&amp;");
-                    break;
-                case '\n':
-                    addANewLine(result, convertedLine);
-                    break;
-                default:
-                    convertedLine.add(String.valueOf(characterToConvert));
+            for (NormalResponse matcher: matchers) {
+                if (matcher.match(characterToConvert)) matcher.addToList(convertedLine);
             }
+            if (newLineMatcher.match(characterToConvert)) addANewLine(result, convertedLine);
         }
 
         addANewLine(result, convertedLine);
