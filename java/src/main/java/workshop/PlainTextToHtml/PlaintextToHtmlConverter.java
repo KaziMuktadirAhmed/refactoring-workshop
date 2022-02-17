@@ -39,7 +39,10 @@ public class PlaintextToHtmlConverter {
 
         for (char characterToConvert: source.toCharArray()) {
             for (NormalResponse matcher: matchers) {
-                if (matcher.match(characterToConvert)) matcher.addToList(convertedLine);
+                if (matcher.match(characterToConvert)) {
+                    matcher.addToList(convertedLine);
+                    break;
+                }
             }
             if (newLineMatcher.match(characterToConvert)) addANewLine(result, convertedLine);
         }
