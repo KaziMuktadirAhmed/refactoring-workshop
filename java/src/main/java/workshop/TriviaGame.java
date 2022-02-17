@@ -88,13 +88,13 @@ public class TriviaGame {
     }
 
     private void askQuestion() {
-        if (currentCategory().equals("Pop"))
+        if ("Pop".equals(currentCategory()))
             announce(popQuestions.remove(0));
-        if (currentCategory().equals("Science"))
+        if ("Science".equals(currentCategory()))
             announce(scienceQuestions.remove(0));
-        if (currentCategory().equals("Sports"))
+        if ("Sports".equals(currentCategory()))
             announce(sportsQuestions.remove(0));
-        if (currentCategory().equals("Rock"))
+        if ("Rock".equals(currentCategory()))
             announce(rockQuestions.remove(0));
     }
 
