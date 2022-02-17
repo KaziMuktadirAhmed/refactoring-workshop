@@ -6,7 +6,7 @@ public class symbolGreaterThenPattern implements NormalResponse {
     private String toBeAdded;
 
     @Override
-    public boolean match(char toBeMatched) {
+    public boolean match(Character toBeMatched) {
         toBeAdded = "&gt;";
         return toBeMatched == '>';
     }

@@ -2,7 +2,7 @@ package workshop.PlainTextToHtml;
 
 public class symbolNewLinePattern implements Matcher {
     @Override
-    public boolean match(char toBeMatched) {
+    public boolean match(Character toBeMatched) {
         return toBeMatched == '\n';
     }
 }

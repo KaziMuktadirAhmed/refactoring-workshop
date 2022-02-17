@@ -1,5 +1,5 @@
 package workshop.PlainTextToHtml;
 
 public interface Matcher {
-    public boolean match (char toBeMatched);
+    public boolean match (Character toBeMatched);
 }

@@ -49,7 +49,6 @@ public class PlaintextToHtmlConverter {
             }
             if (newLineMatcher.match(characterToConvert)){
                 addANewLine(result, convertedLine);
-                break;
             }
         }
 

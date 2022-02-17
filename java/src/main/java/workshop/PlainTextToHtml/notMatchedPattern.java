@@ -3,11 +3,12 @@ package workshop.PlainTextToHtml;
 import java.util.List;
 
 public class notMatchedPattern implements NormalResponse{
-    private String toBeAdded;
+    private String toBeAdded = "nai";
 
     @Override
-    public boolean match(char toBeMatched) {
+    public boolean match(Character toBeMatched) {
         toBeAdded = String.valueOf(toBeAdded);
+
         return (toBeMatched != '>' && toBeMatched != '<' && toBeMatched != '&'  && toBeMatched != '\n');
     }
 

@@ -6,7 +6,7 @@ public class symbolAmpercentPattern implements NormalResponse {
     private String toBeAdded;
 
     @Override
-    public boolean match(char toBeMatched) {
+    public boolean match(Character toBeMatched) {
         toBeAdded = "&amp;";
         return toBeMatched == '&';
     }

@@ -6,7 +6,7 @@ public class symbolLessThenPattern implements NormalResponse {
     private String toBeAdded;
 
     @Override
-    public boolean match(char toBeMatched) {
+    public boolean match(Character toBeMatched) {
         toBeAdded = "&lt;";
         return toBeMatched == '<';
     }
