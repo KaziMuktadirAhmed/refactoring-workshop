@@ -1,4 +1,4 @@
-package workshop;
+package workshop.PlainTextToHtml;
 
 import java.util.List;
 
