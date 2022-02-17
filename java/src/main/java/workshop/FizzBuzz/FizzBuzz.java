@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FizzBuzz {
-    private List<Matcher> matchers;
-    private Response nullResponse;
+    private final List<Matcher> matchers;
+    private final Response nullResponse;
 
     public FizzBuzz () {
         super();

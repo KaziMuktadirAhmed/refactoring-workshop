@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlaintextToHtmlConverter {
-    private List<NormalResponse> matchers;
-    private symbolNewLinePattern newLineMatcher = new symbolNewLinePattern();
+    private final List<NormalResponse> matchers;
+    private final symbolNewLinePattern newLineMatcher;
 
     public PlaintextToHtmlConverter() {
         this.matchers = new ArrayList<>(Arrays.asList(  new symbolAmpercentPattern(),
