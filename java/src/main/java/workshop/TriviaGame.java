@@ -88,14 +88,26 @@ public class TriviaGame {
     }
 
     private void askQuestion() {
-        if ("Pop".equals(currentCategory()))
-            announce(popQuestions.remove(0));
-        if ("Science".equals(currentCategory()))
-            announce(scienceQuestions.remove(0));
-        if ("Sports".equals(currentCategory()))
-            announce(sportsQuestions.remove(0));
-        if ("Rock".equals(currentCategory()))
-            announce(rockQuestions.remove(0));
+        String question;
+
+        switch (currentCategory()) {
+            case "Pop":
+                question = popQuestions.remove(0);
+                break;
+            case "Science":
+                question = scienceQuestions.remove(0);
+                break;
+            case "Sports":
+                question = sportsQuestions.remove(0);
+                break;
+            case "Rock":
+                question = rockQuestions.remove(0);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + currentCategory());
+        }
+
+        announce(question);
     }
 
 
