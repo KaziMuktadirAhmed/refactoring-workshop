@@ -129,7 +129,6 @@ public class TriviaGame {
             }
 
         } else {
-
             announce("Answer was correct!!!!");
             currentPlayer().addToPurse(1);
 
