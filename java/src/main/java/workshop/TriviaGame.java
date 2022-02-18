@@ -6,7 +6,6 @@ import java.util.List;
 
 public class TriviaGame {
     List<Player> players = new ArrayList<>();
-    int[] purses = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
     List<String> popQuestions = new LinkedList<>();
@@ -33,8 +32,7 @@ public class TriviaGame {
     public void add(String playerName) {
         int lastPlayerIndex = howManyPlayers();
 
-        players.add(new Player(playerName, 0));  // new field added
-        purses[lastPlayerIndex] = 0;
+        players.add(new Player(playerName, 0, 0));  // new field added
         inPenaltyBox[lastPlayerIndex] = false;
 
         announce(playerName + " was added");
@@ -119,11 +117,11 @@ public class TriviaGame {
         if (inPenaltyBox[currentPlayerIndex]) {
             if (isGettingOutOfPenaltyBox) {
                 announce("Answer was correct!!!!");
-                purses[currentPlayerIndex]++;
+                currentPlayer().addToPurse(1);
 
                 announce(currentPlayer().name()
                         + " now has "
-                        + purses[currentPlayerIndex]
+                        + currentPlayer().purse()
                         + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
@@ -141,10 +139,11 @@ public class TriviaGame {
         } else {
 
             announce("Answer was correct!!!!");
-            purses[currentPlayerIndex]++;
+            currentPlayer().addToPurse(1);
+
             announce(currentPlayer().name()
                     + " now has "
-                    + purses[currentPlayerIndex]
+                    + currentPlayer().purse()
                     + " Gold Coins.");
 
             boolean winner = didPlayerWin();
@@ -178,7 +177,7 @@ public class TriviaGame {
     }
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayerIndex] == 6);
+        return !(currentPlayer().purse() == 6);
     }
 
     protected void announce(Object message) {
