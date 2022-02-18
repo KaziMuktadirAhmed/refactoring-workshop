@@ -6,7 +6,6 @@ import java.util.List;
 
 public class TriviaGame {
     List<Player> players = new ArrayList<>();
-    int[] places = new int[6];
     int[] purses = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
@@ -15,7 +14,7 @@ public class TriviaGame {
     List<String> sportsQuestions = new LinkedList<>();
     List<String> rockQuestions = new LinkedList<>();
 
-    int currentPlayer = 0;
+    int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
 
     public TriviaGame() {
@@ -27,10 +26,6 @@ public class TriviaGame {
         }
     }
 
-    public String createRockQuestion(int index) {
-        return "Rock Question " + index;
-    }
-
     public boolean isPlayable() {
         return (howManyPlayers() >= 2);
     }
@@ -38,8 +33,7 @@ public class TriviaGame {
     public void add(String playerName) {
         int lastPlayerIndex = howManyPlayers();
 
-        players.add(new Player(playerName));
-        places[lastPlayerIndex] = 0;
+        players.add(new Player(playerName, 0));  // new field added
         purses[lastPlayerIndex] = 0;
         inPenaltyBox[lastPlayerIndex] = false;
 
@@ -47,28 +41,23 @@ public class TriviaGame {
         announce("They are player number " + players.size());
     }
 
-    public int howManyPlayers() {
-        int playerCount = players.size();
-        return playerCount;
-    }
-
     public void roll(int roll) {
         announce(currentPlayer().name() + " is the current player");
 
         announce("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (inPenaltyBox[currentPlayerIndex]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
                 announce(currentPlayer().name() + " is getting out of the penalty box");
 
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                currentPlayer().move(roll);
 
                 announce(currentPlayer().name()
                         + "'s new location is "
-                        + places[currentPlayer]);
+                        + currentPlayer().place());
+
                 announce("The category is " + currentCategory());
                 askQuestion();
             } else {
@@ -78,21 +67,16 @@ public class TriviaGame {
 
         } else {
 
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+            currentPlayer().move(roll);
 
             announce(currentPlayer().name()
                     + "'s new location is "
-                    + places[currentPlayer]);
+                    + currentPlayer().place());
 
             announce("The category is " + currentCategory());
             askQuestion();
         }
 
-    }
-
-    private Player currentPlayer() {
-        return players.get(currentPlayer);
     }
 
     private void askQuestion() {
@@ -118,55 +102,54 @@ public class TriviaGame {
         announce(question);
     }
 
-
     private String currentCategory() {
-        if (places[currentPlayer] == 0) return "Pop";
-        if (places[currentPlayer] == 4) return "Pop";
-        if (places[currentPlayer] == 8) return "Pop";
-        if (places[currentPlayer] == 1) return "Science";
-        if (places[currentPlayer] == 5) return "Science";
-        if (places[currentPlayer] == 9) return "Science";
-        if (places[currentPlayer] == 2) return "Sports";
-        if (places[currentPlayer] == 6) return "Sports";
-        if (places[currentPlayer] == 10) return "Sports";
+        if (currentPlayer().place() == 0) return "Pop";
+        if (currentPlayer().place() == 4) return "Pop";
+        if (currentPlayer().place() == 8) return "Pop";
+        if (currentPlayer().place() == 1) return "Science";
+        if (currentPlayer().place() == 5) return "Science";
+        if (currentPlayer().place() == 9) return "Science";
+        if (currentPlayer().place() == 2) return "Sports";
+        if (currentPlayer().place() == 6) return "Sports";
+        if (currentPlayer().place() == 10) return "Sports";
         return "Rock";
     }
 
     public boolean wasCorrectlyAnswered() {
-        if (inPenaltyBox[currentPlayer]) {
+        if (inPenaltyBox[currentPlayerIndex]) {
             if (isGettingOutOfPenaltyBox) {
                 announce("Answer was correct!!!!");
-                purses[currentPlayer]++;
+                purses[currentPlayerIndex]++;
 
                 announce(currentPlayer().name()
                         + " now has "
-                        + purses[currentPlayer]
+                        + purses[currentPlayerIndex]
                         + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+                currentPlayerIndex++;
+                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
 
                 return winner;
+
             } else {
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+                currentPlayerIndex++;
+                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
                 return true;
             }
-
 
         } else {
 
             announce("Answer was correct!!!!");
-            purses[currentPlayer]++;
+            purses[currentPlayerIndex]++;
             announce(currentPlayer().name()
                     + " now has "
-                    + purses[currentPlayer]
+                    + purses[currentPlayerIndex]
                     + " Gold Coins.");
 
             boolean winner = didPlayerWin();
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            currentPlayerIndex++;
+            if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
 
             return winner;
         }
@@ -175,15 +158,27 @@ public class TriviaGame {
     public boolean wrongAnswer() {
         announce("Question was incorrectly answered");
         announce(currentPlayer().name() + " was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
+        inPenaltyBox[currentPlayerIndex] = true;
 
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        currentPlayerIndex++;
+        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
         return true;
     }
 
+    public String createRockQuestion(int index) {
+        return "Rock Question " + index;
+    }
+
+    public int howManyPlayers() {
+        return players.size();
+    }
+
+    private Player currentPlayer() {
+        return players.get(currentPlayerIndex);
+    }
+
     private boolean didPlayerWin() {
-        return !(purses[currentPlayer] == 6);
+        return !(purses[currentPlayerIndex] == 6);
     }
 
     protected void announce(Object message) {
