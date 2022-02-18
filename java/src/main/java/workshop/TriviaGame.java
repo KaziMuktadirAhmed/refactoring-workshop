@@ -6,7 +6,6 @@ import java.util.List;
 
 public class TriviaGame {
     List<Player> players = new ArrayList<>();
-    boolean[] inPenaltyBox = new boolean[6];
 
     List<String> popQuestions = new LinkedList<>();
     List<String> scienceQuestions = new LinkedList<>();
@@ -30,10 +29,7 @@ public class TriviaGame {
     }
 
     public void add(String playerName) {
-        int lastPlayerIndex = howManyPlayers();
-
-        players.add(new Player(playerName, 0, 0));  // new field added
-        inPenaltyBox[lastPlayerIndex] = false;
+        players.add(new Player(playerName, 0, 0, false)); 
 
         announce(playerName + " was added");
         announce("They are player number " + players.size());
@@ -41,15 +37,13 @@ public class TriviaGame {
 
     public void roll(int roll) {
         announce(currentPlayer().name() + " is the current player");
-
         announce("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayerIndex]) {
+        if (currentPlayer().PenaltyStatus()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
                 announce(currentPlayer().name() + " is getting out of the penalty box");
-
                 currentPlayer().move(roll);
 
                 announce(currentPlayer().name()
@@ -58,6 +52,7 @@ public class TriviaGame {
 
                 announce("The category is " + currentCategory());
                 askQuestion();
+
             } else {
                 announce(currentPlayer().name() + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
@@ -66,7 +61,6 @@ public class TriviaGame {
         } else {
 
             currentPlayer().move(roll);
-
             announce(currentPlayer().name()
                     + "'s new location is "
                     + currentPlayer().place());
@@ -74,7 +68,6 @@ public class TriviaGame {
             announce("The category is " + currentCategory());
             askQuestion();
         }
-
     }
 
     private void askQuestion() {
@@ -114,7 +107,7 @@ public class TriviaGame {
     }
 
     public boolean wasCorrectlyAnswered() {
-        if (inPenaltyBox[currentPlayerIndex]) {
+        if (currentPlayer().PenaltyStatus()) {
             if (isGettingOutOfPenaltyBox) {
                 announce("Answer was correct!!!!");
                 currentPlayer().addToPurse(1);
@@ -157,7 +150,7 @@ public class TriviaGame {
     public boolean wrongAnswer() {
         announce("Question was incorrectly answered");
         announce(currentPlayer().name() + " was sent to the penalty box");
-        inPenaltyBox[currentPlayerIndex] = true;
+        currentPlayer().setPenaltyStatus(true);
 
         currentPlayerIndex++;
         if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
