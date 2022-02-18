@@ -3,13 +3,13 @@ package workshop;
 public class Player {
     private final String name;
     private int place;
-    private int purse;
+    private int coins;
     private boolean PenaltyStatus;
 
-    public Player (String name, int place, int purse, boolean penaltyStatus) {
+    public Player (String name, int place, int coins, boolean penaltyStatus) {
         this.name = name;
         this.place = place;
-        this.purse = purse;
+        this.coins = coins;
         this.PenaltyStatus = penaltyStatus;
     }
 
@@ -21,8 +21,8 @@ public class Player {
         return place;
     }
 
-    public int purse() {
-        return purse;
+    public int coins() {
+        return coins;
     }
 
     public boolean PenaltyStatus() {
@@ -33,8 +33,8 @@ public class Player {
         PenaltyStatus = penalty;
     }
 
-    public void addToPurse (int amount) {
-        purse += amount;
+    public void addCoin(int amount) {
+        coins += amount;
     }
 
     public void move(int roll) {

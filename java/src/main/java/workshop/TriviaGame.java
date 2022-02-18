@@ -20,12 +20,8 @@ public class TriviaGame {
             popQuestions.add("Pop Question " + i);
             scienceQuestions.add(("Science Question " + i));
             sportsQuestions.add(("Sports Question " + i));
-            rockQuestions.add(createRockQuestion(i));
+            rockQuestions.add("Rock Question " + i);
         }
-    }
-
-    public boolean isPlayable() {
-        return (howManyPlayers() >= 2);
     }
 
     public void add(String playerName) {
@@ -109,11 +105,11 @@ public class TriviaGame {
         if (currentPlayer().PenaltyStatus()) {
             if (isGettingOutOfPenaltyBox) {
                 announce("Answer was correct!!!!");
-                currentPlayer().addToPurse(1);
+                currentPlayer().addCoin(1);
 
                 announce(currentPlayer().name()
                         + " now has "
-                        + currentPlayer().purse()
+                        + currentPlayer().coins()
                         + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
@@ -130,11 +126,11 @@ public class TriviaGame {
 
         } else {
             announce("Answer was correct!!!!");
-            currentPlayer().addToPurse(1);
+            currentPlayer().addCoin(1);
 
             announce(currentPlayer().name()
                     + " now has "
-                    + currentPlayer().purse()
+                    + currentPlayer().coins()
                     + " Gold Coins.");
 
             boolean winner = didPlayerWin();
@@ -155,20 +151,12 @@ public class TriviaGame {
         return true;
     }
 
-    public String createRockQuestion(int index) {
-        return "Rock Question " + index;
-    }
-
-    public int howManyPlayers() {
-        return players.size();
-    }
-
     private Player currentPlayer() {
         return players.get(currentPlayerIndex);
     }
 
     private boolean didPlayerWin() {
-        return !(currentPlayer().purse() == 6);
+        return !(currentPlayer().coins() == 6);
     }
 
     protected void announce(Object message) {
