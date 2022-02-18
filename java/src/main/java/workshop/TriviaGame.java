@@ -53,7 +53,7 @@ public class TriviaGame {
     }
 
     public void roll(int roll) {
-        announce(players.get(currentPlayer).name() + " is the current player");
+        announce(currentPlayer().name() + " is the current player");
 
         announce("They have rolled a " + roll);
 
@@ -61,18 +61,18 @@ public class TriviaGame {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
-                announce(players.get(currentPlayer).name() + " is getting out of the penalty box");
+                announce(currentPlayer().name() + " is getting out of the penalty box");
 
                 places[currentPlayer] = places[currentPlayer] + roll;
                 if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
-                announce(players.get(currentPlayer).name()
+                announce(currentPlayer().name()
                         + "'s new location is "
                         + places[currentPlayer]);
                 announce("The category is " + currentCategory());
                 askQuestion();
             } else {
-                announce(players.get(currentPlayer).name() + " is not getting out of the penalty box");
+                announce(currentPlayer().name() + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
 
@@ -81,7 +81,7 @@ public class TriviaGame {
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
-            announce(players.get(currentPlayer).name()
+            announce(currentPlayer().name()
                     + "'s new location is "
                     + places[currentPlayer]);
 
@@ -89,6 +89,10 @@ public class TriviaGame {
             askQuestion();
         }
 
+    }
+
+    private Player currentPlayer() {
+        return players.get(currentPlayer);
     }
 
     private void askQuestion() {
@@ -134,7 +138,7 @@ public class TriviaGame {
                 announce("Answer was correct!!!!");
                 purses[currentPlayer]++;
 
-                announce(players.get(currentPlayer).name()
+                announce(currentPlayer().name()
                         + " now has "
                         + purses[currentPlayer]
                         + " Gold Coins.");
@@ -155,7 +159,7 @@ public class TriviaGame {
 
             announce("Answer was correct!!!!");
             purses[currentPlayer]++;
-            announce(players.get(currentPlayer).name()
+            announce(currentPlayer().name()
                     + " now has "
                     + purses[currentPlayer]
                     + " Gold Coins.");
@@ -170,7 +174,7 @@ public class TriviaGame {
 
     public boolean wrongAnswer() {
         announce("Question was incorrectly answered");
-        announce(players.get(currentPlayer).name() + " was sent to the penalty box");
+        announce(currentPlayer().name() + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
 
         currentPlayer++;
