@@ -6,7 +6,6 @@ import java.util.List;
 public class TriviaGame {
     private final List<Player> players = new ArrayList<>();
     private final Questions questions = new Questions();
-
     private int currentPlayerIndex = 0;
     private boolean isGettingOutOfPenaltyBox;
 
@@ -28,6 +27,7 @@ public class TriviaGame {
         if (currentPlayer().isInPenaltyBox()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
+                currentPlayer().setPenaltyStatus(false);
                 announce(currentPlayer().name() + " is getting out of the penalty box");
                 movePlayerAndAskQuestion(roll);
 
@@ -35,7 +35,6 @@ public class TriviaGame {
                 announce(currentPlayer().name() + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
-
         } else {
             movePlayerAndAskQuestion(roll);
         }
@@ -57,6 +56,7 @@ public class TriviaGame {
     private boolean checkForPenalty() {
         if (currentPlayer().isInPenaltyBox()) {
             if (isGettingOutOfPenaltyBox) {
+                currentPlayer().setPenaltyStatus(false);
                 announceCorrectAndAddCoins();
                 return currentPlayer().didPlayerWin();
             } else {
