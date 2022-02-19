@@ -4,10 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Questions {
-    private final ArrayList<QuestionCategory> questionCategories = new ArrayList<>();
+    private ArrayList<QuestionCategory> questionCategories = new ArrayList<>();
 
     public Questions() {
         questionCategories.addAll(Arrays.asList(new PopQuestion(), new ScienceQuestion(), new SportsQuestion(), new RockQuestion()));
+
+        for (int i = 0; i < 50; i++) {
+            for (QuestionCategory category: questionCategories) {
+                category.addNewQuestion(i);
+            }
+        }
+    }
+
+    public Questions(ArrayList<QuestionCategory> questionCategories) {
+        this.questionCategories = questionCategories;
 
         for (int i = 0; i < 50; i++) {
             for (QuestionCategory category: questionCategories) {
