@@ -60,7 +60,7 @@ public class TriviaGame {
                 currentPlayer().addCoin(1);
                 announce(currentPlayer().name() + " now has " + currentPlayer().coins() + " Gold Coins.");
 
-                boolean winner = didPlayerWin();
+                boolean winner = currentPlayer().didPlayerWin();
                 nextPlayer();
 
                 return winner;
@@ -79,22 +79,20 @@ public class TriviaGame {
                     + currentPlayer().coins()
                     + " Gold Coins.");
 
-            boolean winner = didPlayerWin();
+            boolean winner = currentPlayer().didPlayerWin();
             nextPlayer();
 
             return winner;
         }
     }
 
-    public boolean wrongAnswer() {
+    public void wrongAnswer() {
         announce("Question was incorrectly answered");
         announce(currentPlayer().name() + " was sent to the penalty box");
         currentPlayer().setPenaltyStatus(true);
-
         nextPlayer();
-        return true;
     }
-    
+
     private void nextPlayer() {
         currentPlayerIndex++;
         if (currentPlayerIndex == players.size()) {
@@ -104,10 +102,6 @@ public class TriviaGame {
 
     private Player currentPlayer() {
         return players.get(currentPlayerIndex);
-    }
-
-    private boolean didPlayerWin() {
-        return !(currentPlayer().coins() == 6);
     }
 
     protected void announce(Object message) {
