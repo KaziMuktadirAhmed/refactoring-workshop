@@ -19,10 +19,16 @@ public class Questions {
     }
 
     public String currentCategory(int playerPlace) {
-        if (playerPlace % 4 == 0) return "Pop";
-        else if (playerPlace % 4 == 1) return "Science";
-        else if (playerPlace % 4 == 2) return "Sports";
-        else return "Rock";
+        switch (playerPlace % 4) {
+            case 0:
+                return "Pop";
+            case 1:
+                return "Science";
+            case 2:
+                return "Sports";
+            default:
+                return "Rock";
+        }
     }
 
     public String nextQuestion(int playerPlace) {
