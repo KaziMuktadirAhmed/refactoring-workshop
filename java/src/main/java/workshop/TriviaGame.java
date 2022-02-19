@@ -10,15 +10,15 @@ public class TriviaGame {
     private int currentPlayerIndex = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    private void askQuestion() {
-        String question = questions.nextQuestion(currentPlayer().place());
-        announce(question);
-    }
-
     public void add(String playerName) {
         players.add(new Player(playerName, 0, 0, false));
         announce(playerName + " was added");
         announce("They are player number " + players.size());
+    }
+
+    private void askQuestion() {
+        String question = questions.nextQuestion(currentPlayer().place());
+        announce(question);
     }
 
     public void roll(int roll) {
@@ -28,10 +28,9 @@ public class TriviaGame {
         if (currentPlayer().isInPenaltyBox()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
-
                 announce(currentPlayer().name() + " is getting out of the penalty box");
-                currentPlayer().move(roll);
 
+                currentPlayer().move(roll);
                 announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
                 announce("The category is " + questions.currentCategory(currentPlayer().place()));
                 askQuestion();
@@ -44,7 +43,6 @@ public class TriviaGame {
         } else {
             currentPlayer().move(roll);
             announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
-
             announce("The category is " + questions.currentCategory(currentPlayer().place()));
             askQuestion();
         }
