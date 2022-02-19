@@ -1,4 +1,4 @@
-package workshop;
+package workshop.TriviaGame;
 
 public class Player {
     private final String name;

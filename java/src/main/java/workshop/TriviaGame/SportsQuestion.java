@@ -1,24 +1,24 @@
-package workshop;
+package workshop.TriviaGame;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ScienceQuestion implements QuestionCategory {
+public class SportsQuestion implements QuestionCategory {
     private final List<String> stackOfQuestions = new LinkedList<>();
 
     @Override
     public boolean match(int number) {
-        return (number % 4 == 1);
+        return (number % 4 == 2);
     }
 
     @Override
     public String category() {
-        return "Science";
+        return "Sports";
     }
 
     @Override
     public void addNewQuestion(int number) {
-        stackOfQuestions.add("Science Question " + number);
+        stackOfQuestions.add("Sports Question " + number);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package workshop;
+package workshop.TriviaGame;
 
 public interface QuestionCategory {
     public boolean match (int number);

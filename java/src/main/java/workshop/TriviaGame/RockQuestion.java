@@ -1,4 +1,4 @@
-package workshop;
+package workshop.TriviaGame;
 
 import java.util.LinkedList;
 import java.util.List;
