@@ -7,8 +7,8 @@ public class TriviaGame {
     private final List<Player> players = new ArrayList<>();
     private final Questions questions = new Questions();
 
-    int currentPlayerIndex = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayerIndex = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
     private void askQuestion() {
         String question = questions.nextQuestion(currentPlayer().place());
@@ -53,9 +53,7 @@ public class TriviaGame {
     public boolean wasCorrectlyAnswered() {
         if (currentPlayer().isInPenaltyBox()) {
             if (isGettingOutOfPenaltyBox) {
-                announce("Answer was correct!!!!");
-                currentPlayer().addCoin(1);
-                announce(currentPlayer().name() + " now has " + currentPlayer().coins() + " Gold Coins.");
+                announceCorrectAndAddCoins();
 
                 boolean winner = currentPlayer().didPlayerWin();
 
@@ -68,19 +66,18 @@ public class TriviaGame {
             }
 
         } else {
-            announce("Answer was correct!!!!");
-            currentPlayer().addCoin(1);
-
-            announce(currentPlayer().name()
-                    + " now has "
-                    + currentPlayer().coins()
-                    + " Gold Coins.");
+            announceCorrectAndAddCoins();
 
             boolean winner = currentPlayer().didPlayerWin();
-
             nextPlayer();
             return winner;
         }
+    }
+
+    private void announceCorrectAndAddCoins() {
+        announce("Answer was correct!!!!");
+        currentPlayer().addCoin(1);
+        announce(currentPlayer().name() + " now has " + currentPlayer().coins() + " Gold Coins.");
     }
 
     public void wrongAnswer() {
