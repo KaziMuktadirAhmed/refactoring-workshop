@@ -1,19 +1,18 @@
 package workshop;
 
-public class PopQuestion implements QuestionCategory {
+public class SportsQuestion implements QuestionCategory {
     @Override
     public boolean match(int number) {
-        return (number % 4 == 0);
+        return (number % 4 == 2);
     }
 
     @Override
     public String category() {
-        return "Pop";
+        return "Sports";
     }
 
     @Override
     public String ask(int number) {
-        return "Pop Question " + number;
-
+        return "Sports Question " + number;
     }
 }

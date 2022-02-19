@@ -1,19 +1,18 @@
 package workshop;
 
-public class ScienceQuestion implements QuestionCatagory{
-    private final int questionPos;
-
-    public ScienceQuestion(int questionPos) {
-        super();
-        this.questionPos = questionPos;
-    }
+public class ScienceQuestion implements QuestionCategory {
     @Override
     public boolean match(int number) {
         return (number % 4 == 1);
     }
 
     @Override
-    public String ask() {
-        return "Science Question " + questionPos;
+    public String category() {
+        return "Science";
+    }
+
+    @Override
+    public String ask(int number) {
+        return "Science Question " + number;
     }
 }

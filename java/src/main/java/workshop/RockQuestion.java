@@ -1,6 +1,6 @@
 package workshop;
 
-public class PopQuestion implements QuestionCategory {
+public class RockQuestion implements QuestionCategory {
     @Override
     public boolean match(int number) {
         return (number % 4 == 0);
@@ -8,12 +8,11 @@ public class PopQuestion implements QuestionCategory {
 
     @Override
     public String category() {
-        return "Pop";
+        return "Rock";
     }
 
     @Override
     public String ask(int number) {
-        return "Pop Question " + number;
-
+        return "Rock Question " + number;
     }
 }
