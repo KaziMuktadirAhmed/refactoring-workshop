@@ -20,7 +20,6 @@ public class TriviaGame {
 
     public void add(String playerName) {
         players.add(new Player(playerName, 0, 0, false));
-
         announce(playerName + " was added");
         announce("They are player number " + players.size());
     }
@@ -36,10 +35,7 @@ public class TriviaGame {
                 announce(currentPlayer().name() + " is getting out of the penalty box");
                 currentPlayer().move(roll);
 
-                announce(currentPlayer().name()
-                        + "'s new location is "
-                        + currentPlayer().place());
-
+                announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
                 announce("The category is " + questions.currentCategory(currentPlayer().place()));
                 askQuestion();
 
@@ -50,9 +46,7 @@ public class TriviaGame {
 
         } else {
             currentPlayer().move(roll);
-            announce(currentPlayer().name()
-                    + "'s new location is "
-                    + currentPlayer().place());
+            announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
 
             announce("The category is " + questions.currentCategory(currentPlayer().place()));
             askQuestion();
@@ -64,11 +58,7 @@ public class TriviaGame {
             if (isGettingOutOfPenaltyBox) {
                 announce("Answer was correct!!!!");
                 currentPlayer().addCoin(1);
-
-                announce(currentPlayer().name()
-                        + " now has "
-                        + currentPlayer().coins()
-                        + " Gold Coins.");
+                announce(currentPlayer().name() + " now has " + currentPlayer().coins() + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
                 currentPlayerIndex++;
