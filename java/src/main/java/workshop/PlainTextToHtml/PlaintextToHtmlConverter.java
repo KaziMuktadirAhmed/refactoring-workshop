@@ -53,8 +53,7 @@ public class PlaintextToHtmlConverter {
         }
 
         addANewLine(result, convertedLine);
-        String finalResult = String.join("<br />", result);
-        return finalResult;
+        return String.join("<br />", result);
     }
 
     //stringfy convertedLine array and push into result
