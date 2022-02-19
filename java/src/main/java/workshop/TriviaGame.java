@@ -1,57 +1,21 @@
 package workshop;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TriviaGame {
     private final List<Player> players = new ArrayList<>();
-
-    List<String> popQuestions = new LinkedList<>();
-    List<String> scienceQuestions = new LinkedList<>();
-    List<String> sportsQuestions = new LinkedList<>();
-    List<String> rockQuestions = new LinkedList<>();
+    private final Questions questions = new Questions();
 
     int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
 
     public TriviaGame() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.add("Pop Question " + i);
-            scienceQuestions.add(("Science Question " + i));
-            sportsQuestions.add(("Sports Question " + i));
-            rockQuestions.add("Rock Question " + i);
-        }
     }
 
     private void askQuestion() {
-        String question;
-
-        switch (currentCategory()) {
-            case "Pop":
-                question = popQuestions.remove(0);
-                break;
-            case "Science":
-                question = scienceQuestions.remove(0);
-                break;
-            case "Sports":
-                question = sportsQuestions.remove(0);
-                break;
-            case "Rock":
-                question = rockQuestions.remove(0);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + currentCategory());
-        }
-
+        String question = questions.nextQuestion(currentPlayer().place());
         announce(question);
-    }
-
-    private String currentCategory() {
-        if (currentPlayer().place()%4 == 0) return "Pop";
-        else if (currentPlayer().place()%4 == 1) return "Science";
-        else if (currentPlayer().place()%4 == 2) return "Sports";
-        else return "Rock";
     }
 
     public void add(String playerName) {
@@ -76,7 +40,7 @@ public class TriviaGame {
                         + "'s new location is "
                         + currentPlayer().place());
 
-                announce("The category is " + currentCategory());
+                announce("The category is " + questions.currentCategory(currentPlayer().place()));
                 askQuestion();
 
             } else {
@@ -90,7 +54,7 @@ public class TriviaGame {
                     + "'s new location is "
                     + currentPlayer().place());
 
-            announce("The category is " + currentCategory());
+            announce("The category is " + questions.currentCategory(currentPlayer().place()));
             askQuestion();
         }
     }
