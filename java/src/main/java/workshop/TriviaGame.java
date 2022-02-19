@@ -27,7 +27,6 @@ public class TriviaGame {
         if (currentPlayer().isInPenaltyBox()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
-                currentPlayer().setPenaltyStatus(false);
                 announce(currentPlayer().name() + " is getting out of the penalty box");
                 movePlayerAndAskQuestion(roll);
 
