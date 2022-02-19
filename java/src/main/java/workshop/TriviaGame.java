@@ -10,9 +10,6 @@ public class TriviaGame {
     int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
 
-    public TriviaGame() {
-    }
-
     private void askQuestion() {
         String question = questions.nextQuestion(currentPlayer().place());
         announce(question);
@@ -61,8 +58,8 @@ public class TriviaGame {
                 announce(currentPlayer().name() + " now has " + currentPlayer().coins() + " Gold Coins.");
 
                 boolean winner = currentPlayer().didPlayerWin();
-                nextPlayer();
 
+                nextPlayer();
                 return winner;
 
             } else {
@@ -80,8 +77,8 @@ public class TriviaGame {
                     + " Gold Coins.");
 
             boolean winner = currentPlayer().didPlayerWin();
-            nextPlayer();
 
+            nextPlayer();
             return winner;
         }
     }
