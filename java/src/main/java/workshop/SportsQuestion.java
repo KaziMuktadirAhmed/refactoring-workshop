@@ -1,6 +1,11 @@
 package workshop;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class SportsQuestion implements QuestionCategory {
+    private final List<String> stackOfQuestions = new LinkedList<>();
+
     @Override
     public boolean match(int number) {
         return (number % 4 == 2);
@@ -12,7 +17,12 @@ public class SportsQuestion implements QuestionCategory {
     }
 
     @Override
-    public String ask(int number) {
-        return "Sports Question " + number;
+    public void addNewQuestion(int number) {
+        stackOfQuestions.add("Sports Question " + number);
+    }
+
+    @Override
+    public String askQuestionFromStack() {
+        return stackOfQuestions.remove(0);
     }
 }
