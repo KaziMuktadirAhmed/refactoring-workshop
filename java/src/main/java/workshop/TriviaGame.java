@@ -29,11 +29,7 @@ public class TriviaGame {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
                 announce(currentPlayer().name() + " is getting out of the penalty box");
-
-                currentPlayer().move(roll);
-                announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
-                announce("The category is " + questions.currentCategory(currentPlayer().place()));
-                askQuestion();
+                movePlayerAndAskQuestion(roll);
 
             } else {
                 announce(currentPlayer().name() + " is not getting out of the penalty box");
@@ -41,11 +37,15 @@ public class TriviaGame {
             }
 
         } else {
-            currentPlayer().move(roll);
-            announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
-            announce("The category is " + questions.currentCategory(currentPlayer().place()));
-            askQuestion();
+            movePlayerAndAskQuestion(roll);
         }
+    }
+
+    private void movePlayerAndAskQuestion(int roll) {
+        currentPlayer().move(roll);
+        announce(currentPlayer().name() + "'s new location is " + currentPlayer().place());
+        announce("The category is " + questions.currentCategory(currentPlayer().place()));
+        askQuestion();
     }
 
     public boolean wasCorrectlyAnswered() {
