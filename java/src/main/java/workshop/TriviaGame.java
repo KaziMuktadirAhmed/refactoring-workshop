@@ -51,26 +51,22 @@ public class TriviaGame {
     }
 
     public boolean wasCorrectlyAnswered() {
+        boolean result = checkForPenalty();
+        nextPlayer();
+        return  result;
+    }
+
+    private boolean checkForPenalty() {
         if (currentPlayer().isInPenaltyBox()) {
             if (isGettingOutOfPenaltyBox) {
                 announceCorrectAndAddCoins();
-
-                boolean winner = currentPlayer().didPlayerWin();
-
-                nextPlayer();
-                return winner;
-
+                return currentPlayer().didPlayerWin();
             } else {
-                nextPlayer();
                 return true;
             }
-
         } else {
             announceCorrectAndAddCoins();
-
-            boolean winner = currentPlayer().didPlayerWin();
-            nextPlayer();
-            return winner;
+            return currentPlayer().didPlayerWin();
         }
     }
 
