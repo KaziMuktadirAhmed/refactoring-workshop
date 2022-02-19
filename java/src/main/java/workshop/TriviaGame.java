@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TriviaGame {
-    List<Player> players = new ArrayList<>();
+    private final List<Player> players = new ArrayList<>();
 
     List<String> popQuestions = new LinkedList<>();
     List<String> scienceQuestions = new LinkedList<>();
@@ -24,6 +24,36 @@ public class TriviaGame {
         }
     }
 
+    private void askQuestion() {
+        String question;
+
+        switch (currentCategory()) {
+            case "Pop":
+                question = popQuestions.remove(0);
+                break;
+            case "Science":
+                question = scienceQuestions.remove(0);
+                break;
+            case "Sports":
+                question = sportsQuestions.remove(0);
+                break;
+            case "Rock":
+                question = rockQuestions.remove(0);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + currentCategory());
+        }
+
+        announce(question);
+    }
+
+    private String currentCategory() {
+        if (currentPlayer().place()%4 == 0) return "Pop";
+        else if (currentPlayer().place()%4 == 1) return "Science";
+        else if (currentPlayer().place()%4 == 2) return "Sports";
+        else return "Rock";
+    }
+
     public void add(String playerName) {
         players.add(new Player(playerName, 0, 0, false));
 
@@ -35,7 +65,7 @@ public class TriviaGame {
         announce(currentPlayer().name() + " is the current player");
         announce("They have rolled a " + roll);
 
-        if (currentPlayer().PenaltyStatus()) {
+        if (currentPlayer().isInPenaltyBox()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
@@ -65,38 +95,8 @@ public class TriviaGame {
         }
     }
 
-    private void askQuestion() {
-        String question;
-
-        switch (currentCategory()) {
-            case "Pop":
-                question = popQuestions.remove(0);
-                break;
-            case "Science":
-                question = scienceQuestions.remove(0);
-                break;
-            case "Sports":
-                question = sportsQuestions.remove(0);
-                break;
-            case "Rock":
-                question = rockQuestions.remove(0);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + currentCategory());
-        }
-
-        announce(question);
-    }
-
-    private String currentCategory() {
-        if (currentPlayer().place()%4 == 0) return "Pop";
-        if (currentPlayer().place()%4 == 1) return "Science";
-        if (currentPlayer().place()%4 == 2) return "Sports";
-        return "Rock";
-    }
-
     public boolean wasCorrectlyAnswered() {
-        if (currentPlayer().PenaltyStatus()) {
+        if (currentPlayer().isInPenaltyBox()) {
             if (isGettingOutOfPenaltyBox) {
                 announce("Answer was correct!!!!");
                 currentPlayer().addCoin(1);

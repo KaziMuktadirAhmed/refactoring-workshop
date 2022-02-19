@@ -25,7 +25,7 @@ public class Player {
         return coins;
     }
 
-    public boolean PenaltyStatus() {
+    public boolean isInPenaltyBox() {
         return PenaltyStatus;
     }
 
