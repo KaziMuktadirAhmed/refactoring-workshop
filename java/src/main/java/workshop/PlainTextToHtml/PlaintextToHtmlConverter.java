@@ -56,8 +56,6 @@ public class PlaintextToHtmlConverter {
         return String.join("<br />", result);
     }
 
-    //stringfy convertedLine array and push into result
-    //reset convertedLine
     private void addANewLine(List<String> result, List<String> convertedLine) {
         String line = String.join("", convertedLine);
         result.add(line);
