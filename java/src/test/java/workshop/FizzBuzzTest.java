@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import workshop.FizzBuzz.FizzBuzz;
 import workshop.FizzBuzz.NullResponse;
 
+import java.util.Arrays;
+
 public class FizzBuzzTest {
     private FizzBuzz fizzBuzz = new FizzBuzz();
 
